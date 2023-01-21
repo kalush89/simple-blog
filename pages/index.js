@@ -1,15 +1,21 @@
 import { getAllPosts } from "@/src/utils";//show article
 import Article from "@/src/components/Article";
+import Head from "next/head";
 
 const Home = ({posts}) => {
   return (
-    <ul>
-        {posts.map(post => (
-          <li key={post.slug}>
-            <Article key={post.slug} post={post} />
-          </li>
-        ))}
-    </ul>
+    <>
+      <Head>
+        <title>Albert's simple blog</title>
+      </Head>
+      <ul>
+          {posts.map(post => (
+            <li key={post.slug}>
+              <Article key={post.slug} post={post} />
+            </li>
+          ))}
+      </ul>
+    </>
   );
 };
 
