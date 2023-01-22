@@ -1,7 +1,10 @@
 import { getSlugs, getPostFromSlug } from "@/src/utils";
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
+import rehypeHighlight from "rehype-highlight";
 import Head from "next/head";
+//Base16 / Atelier-Cave
+import "highlight.js/styles/base16/atelier-cave.css";
 
 
 const PostPage = ({ post }) => {
@@ -28,7 +31,13 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({params}) => {
     const { slug } = params;
     const {content, meta} = getPostFromSlug(slug);
-    const MDXSource = await serialize(content, {});
+    const MDXSource = await serialize(content, {
+        mdxOptions: {
+            rehypePlugins: [
+              rehypeHighlight,
+            ],
+          },
+    });
     
     return {
         props:{
